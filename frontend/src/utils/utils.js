@@ -1,1 +1,1 @@
-export const backendUrl = "http://localhost:5001/api/v1";
+export const backendUrl = "https://coursify-klfe.onrender.com";
