@@ -15,10 +15,9 @@ import Dashboard from './Admin/Dashboard';
 import Coursecreate from './Admin/Coursecreate';
 import Updatecourse from './Admin/Updatecourse';
 import Ourcourses from './Admin/Ourcourses';
- const admin=JSON.parse(localStorage.getItem("admin"));
- const user=JSON.parse(localStorage.getItem("user"));
 export default function App() {
-  
+          const admin=JSON.parse(localStorage.getItem("admin"));
+          const user=JSON.parse(localStorage.getItem("user"));
   return (
       <div>
         <Routes>
