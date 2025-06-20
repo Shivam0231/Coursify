@@ -1,0 +1,9 @@
+import express from 'express';
+import { signup,login,logout} from '../controller/admin.controller.js';
+import { adminmiddleware } from '../middleware/admin.mid.js';
+const router = express.Router();
+router.post('/signup',signup);
+router.post('/login', login);
+router.get('/logout', logout);
+export default router;
+
