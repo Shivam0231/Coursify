@@ -2,7 +2,7 @@ import Admin from '../model/admin.model.js';
 import bcrypt from 'bcryptjs'; // to hash passwords
 import jwt from 'jsonwebtoken'; // to generate JWT tokens for user sessions and authorization
 import {z} from 'zod';
-import config from '../config.js';  // contains secret key for JWT tokens
+import {admin_jwt_secret} from '../config.js';  // contains secret key for JWT tokens
 export const signup = async (req, res) => {
     //signup logic here
 
@@ -55,7 +55,7 @@ export const login = async (req, res) => {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
         // Generate JWT token
-        const token = jwt.sign({ id: admin._id }, config.admin_jwt_secret, { expiresIn: '1d' });
+        const token = jwt.sign({ id: admin._id },admin_jwt_secret, { expiresIn: '1d' });
         const cookieoption = { 
             expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // expires in 1 hour
             httpOnly: true, // Cookie will only be sent over HTTP requests
@@ -66,7 +66,7 @@ export const login = async (req, res) => {
         res.json({ message: 'Logged in successfully',admin,token });
 
     }catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json({ message: 'Server error' });
     }
 }
