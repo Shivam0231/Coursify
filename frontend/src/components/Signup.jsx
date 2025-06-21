@@ -44,7 +44,7 @@ function Signup() {
           <div className="flex items-center space-x-2">
             <img src={logo} alt="Logo" className="w-10 h-10 rounded-full" />
             <Link to={"/"} className="text-lg sm:text-xl font-bold text-orange-500">
-              CourseHaven
+              Coursify
             </Link>
           </div>
           <div className="flex items-center space-x-2 sm:space-x-4">
@@ -66,7 +66,7 @@ function Signup() {
         {/* Signup Form */}
         <div className="bg-gray-900 p-6 sm:p-8 rounded-lg shadow-lg w-full sm:max-w-md md:max-w-lg mt-20 sm:mt-28">
           <h2 className="text-xl sm:text-2xl font-bold mb-4 text-center">
-            Welcome to <span className="text-orange-500">CourseHaven</span>
+            Welcome to <span className="text-orange-500">Coursify</span>
           </h2>
           <p className="text-sm sm:text-base text-center text-gray-400 mb-6">
             Just Signup To Join Us!
