@@ -16,25 +16,34 @@ const Adminlogin = () => {
     setShowPassword(prev => !prev);
   };
 
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post(
-        `${backendUrl}/admin/login`,
-        { email, password },
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      navigate("/admin/dashboard");
-      toast(response.data.message);
-      localStorage.setItem("admin", JSON.stringify(response.data));
-    } catch (error) {
-      if (error.response) {
-        setErrorMessage(error.response.data.message);
+  const handleSubmit = async (e) => {
+  e.preventDefault(); // Prevent form reload (important if inside a form tag)
+  try {
+    const response = await axios.post(
+      `${backendUrl}/admin/login`,
+      { email, password },
+      {
+        withCredentials: true,
+        headers: { "Content-Type": "application/json" },
       }
+    );
+
+    // ✅ Show success toast
+    toast.success(response.data.message);
+
+    // ✅ Save admin to localStorage
+    localStorage.setItem("admin", JSON.stringify(response.data));
+
+    // ✅ Navigate after everything is done
+    navigate("/admin/dashboard");
+  } catch (error) {
+    if (error.response) {
+      setErrorMessage(error.response.data.message || "Login failed");
+    } else {
+      setErrorMessage("Something went wrong. Please try again.");
     }
-  };
+  }
+};
 
   return (
     <div className='min-h-screen bg-gradient-to-r from-black to-blue-950'>
