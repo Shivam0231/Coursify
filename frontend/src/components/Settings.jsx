@@ -79,7 +79,7 @@ const Setting = () => {
       window.location.reload();
     } catch (err) {
       console.error("Update failed", err);
-      setError(err?.response?.data?.message || "Update failed.");
+      setError(err?.response?.data?.message);
     }
   };
 

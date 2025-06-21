@@ -30,7 +30,7 @@ function Signup() {
       navigate("/login");
     } catch (error) {
       if (error.response) {
-        setErrorMessage(error.response.data.errors || "Signup failed!!!");
+        setErrorMessage(error.response.data.message);
       }
     }
   };

@@ -32,7 +32,7 @@ const Adminlogin = () => {
       navigate("/admin/dashboard");
     } catch (error) {
       if (error.response) {
-        setErrorMessage(error.response.data.message || "Login failed!!!");
+        setErrorMessage(error.response.data.message);
       }
     }
   };

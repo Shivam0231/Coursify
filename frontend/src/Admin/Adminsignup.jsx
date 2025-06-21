@@ -31,7 +31,7 @@ function Adminsignup() {
       navigate("/admin/login");
     } catch (error) {
       if (error.response) {
-        setErrorMessage(error.response.data.message || "AdminSignup failed!!!");
+        setErrorMessage(error.response.data.message);
       }
     }
   };

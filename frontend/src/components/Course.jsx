@@ -57,7 +57,7 @@ const Course = () => {
       setIsLoggedIn(false);
       navigate("/login");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Logout failed");
+      toast.error(err.response?.data?.message);
       localStorage.removeItem("user");
       navigate("/login");
     }
