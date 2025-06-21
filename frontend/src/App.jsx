@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
@@ -16,44 +16,32 @@ import Coursecreate from './Admin/Coursecreate';
 import Updatecourse from './Admin/Updatecourse';
 import Ourcourses from './Admin/Ourcourses';
 
+import { useAuth } from './context/AuthContext'; // 👈 Import the context hook
+
 export default function App() {
-  const [admin, setAdmin] = useState(() => JSON.parse(localStorage.getItem("admin")));
-  const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")));
-
-  // Refresh state on storage change (login/logout updates)
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setAdmin(JSON.parse(localStorage.getItem("admin")));
-      setUser(JSON.parse(localStorage.getItem("user")));
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
+ const { admin, user } = useAuth(); // 👈 Get admin and user from context
 
   return (
-    <div>
-      <Routes>
+   <div>
+     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+         <Route path="/login" element={<Login />} />
+         <Route path="/signup" element={<Signup />} />
         <Route path="/courses" element={<Course />} />
-        <Route path="/buy/:courseid" element={<Buy />} />
+         <Route path="/buy/:courseid" element={<Buy />} />
         <Route path="/purchases" element={user ? <Purchase /> : <Navigate to="/login" />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/courseVideos" element={<Coursevideos />} />
-        {/* Admin routes */}
+
+       {/* Admin routes */}
         <Route path="/admin/login" element={<Adminlogin />} />
         <Route path="/admin/signup" element={<Adminsignup />} />
         <Route path="/admin/dashboard" element={admin ? <Dashboard /> : <Navigate to="/admin/login" />} />
         <Route path="/admin/createcourse" element={admin ? <Coursecreate /> : <Navigate to="/admin/login" />} />
         <Route path="/admin/updatecourse/:id" element={admin ? <Updatecourse /> : <Navigate to="/admin/login" />} />
         <Route path="/admin/ourcourses" element={admin ? <Ourcourses /> : <Navigate to="/admin/login" />} />
-      </Routes>
-      <Toaster />
-    </div>
-  );
+        </Routes>
+       <Toaster />
+   </div>
+ );
 }
