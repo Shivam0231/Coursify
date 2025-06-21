@@ -28,8 +28,8 @@ const Adminlogin = () => {
         }
       );
       toast(response.data.message);
-      localStorage.setItem("admin", JSON.stringify(response.data));
       navigate("/admin/dashboard");
+      localStorage.setItem("admin", JSON.stringify(response.data));
     } catch (error) {
       if (error.response) {
         setErrorMessage(error.response.data.message);
