@@ -20,14 +20,18 @@ export default function App() {
   const [admin, setAdmin] = useState(() => JSON.parse(localStorage.getItem("admin")));
   const [user, setUser] = useState(() => JSON.parse(localStorage.getItem("user")));
 
-  // Optional: Refresh state on login/logout
+  // Refresh state on storage change (login/logout updates)
   useEffect(() => {
-    const interval = setInterval(() => {
+    const handleStorageChange = () => {
       setAdmin(JSON.parse(localStorage.getItem("admin")));
       setUser(JSON.parse(localStorage.getItem("user")));
-    }, 1000); // every 1s checks for login/logout (can optimize this later)
+    };
 
-    return () => clearInterval(interval);
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
   return (
@@ -41,7 +45,6 @@ export default function App() {
         <Route path="/purchases" element={user ? <Purchase /> : <Navigate to="/login" />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/courseVideos" element={<Coursevideos />} />
-
         {/* Admin routes */}
         <Route path="/admin/login" element={<Adminlogin />} />
         <Route path="/admin/signup" element={<Adminsignup />} />
