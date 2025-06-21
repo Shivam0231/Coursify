@@ -40,12 +40,12 @@ export const signup = async (req, res) => {
 
 } catch (error) {
     if (error instanceof z.ZodError) {
-        return res.status(400).json({
-            errors: error.errors.map(err => err.message)
-        });
-    }
+    // Set the first validation message as the main error message
+    const firstError = error.errors[0]?.message || "Validation failed";
+    return res.status(400).json({ message: firstError });
+  }
 
-    res.status(500).json({ message: 'Server error' });
+  res.status(500).json({ message: error.message || "Server error" });
 }
 }
 export const login = async (req, res) => {
@@ -69,7 +69,7 @@ export const login = async (req, res) => {
 
     }catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message:error.message});
     }
 }
 export const logout = async (req, res) => {
@@ -79,7 +79,7 @@ export const logout = async (req, res) => {
          return res.status(200).json({ message: 'Logged out successfully' });
     }catch(error){
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message:error.message});
     }
 }
 export const updateUser = async (req, res) => {
