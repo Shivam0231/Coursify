@@ -61,8 +61,8 @@ export const login = async (req, res) => {
         const cookieoption = { 
           expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // expires in 1 d
             httpOnly: true, // Cookie will only be sent over HTTP requests
-            secure: process.env.NODE_ENV === 'production', // Cookie will only be sent over HTTPS requests if NODE_ENV is set to production
-            sameSite:"strict"// Cookie will only be sent over HTTP requests if it's from the same origin or a cross-origin request (Cross-Site Request Forgery (CSRF) protection)
+            secure: true, // Cookie will only be sent over HTTPS requests if NODE_ENV is set to production
+            sameSite:"none"// Cookie will only be sent over HTTP requests if it's from the same origin or a cross-origin request (Cross-Site Request Forgery (CSRF) protection)
          };  // Expires in 24 hours, cookie is only sent over HTTP requests, not included in HTTP responses.  // Cookie options: expires, httpOnly, secure, sameSite (default is 'lax')
         res.cookie('jwt',token,cookieoption);  // Set cookie with the token
         res.json({ message: 'Logged in successfully', user,token });
