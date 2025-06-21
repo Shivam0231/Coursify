@@ -38,7 +38,7 @@ function Home() {
       setIsLoggedIn(false);
       setShowSidebar(false);
     } catch {
-      toast.error("Logout successfully");
+      toast.success("Logout successfully");
       localStorage.removeItem("user");
       navigate("/login");
     }
