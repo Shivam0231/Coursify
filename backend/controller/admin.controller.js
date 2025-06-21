@@ -57,7 +57,7 @@ export const login = async (req, res) => {
         // Generate JWT token
         const token = jwt.sign({ id: admin._id },config.admin_jwt_secret, { expiresIn: '1d' });
         const cookieoption = { 
-            expires: new Date(Date.now() + 24 * 60 * 60 * 1000), // expires in 1 hour
+            expires: new Date(Date.now() + 24 * 60 * 60 * 1000),  // expires in 1 days
             httpOnly: true, // Cookie will only be sent over HTTP requests
             secure: process.env.NODE_ENV === 'production', // Cookie will only be sent over HTTPS requests if NODE_ENV is set to production
             sameSite: 'strict' // Cookie will only be sent over HTTP requests if it's from the same origin or a cross-origin request (Cross-Site Request Forgery (CSRF) protection)
