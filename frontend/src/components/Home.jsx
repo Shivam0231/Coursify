@@ -8,10 +8,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import toast from "react-hot-toast";
 import { backendUrl } from '../utils/utils';
+import { useAuth } from '../context/AuthContext';
 function Home() {
   const [courses, setCourses] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
+  const {setUser} = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,6 +37,7 @@ function Home() {
       const res = await axios.get(`${backendUrl}/user/logout`, { withCredentials: true });
       toast.success(res.data.message);
       localStorage.removeItem("user");
+      setUser(null);
       setIsLoggedIn(false);
       setShowSidebar(false);
     } catch {

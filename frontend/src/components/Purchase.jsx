@@ -9,11 +9,13 @@ import { HiMenu, HiX } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { backendUrl } from '../utils/utils';
+import { useAuth } from '../context/AuthContext';
 const Purchase = () => {
     const[purchases, setPurchases] = useState([]);
     const[isLoggedIn, setIsLoggedIn] = useState(false);
     const[errorMessage, setErrorMessage] = useState("");
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const {setUser} = useAuth();
     const navigate = useNavigate();
     console.log(purchases);
     useEffect(()=>{
@@ -57,6 +59,7 @@ const Purchase = () => {
       });
       toast.success(response.data.message);
       localStorage.removeItem("user");
+      setUser(null);
       navigate("/login");
       setIsLoggedIn(false);
     } catch (error) {

@@ -9,6 +9,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { backendUrl } from "../utils/utils";
+import { useAuth } from '../context/AuthContext';
 const Course = () => {
   const [courses, setCourses] = useState([]);
   const [filteredCourses, setFilteredCourses] = useState([]);
@@ -18,6 +19,7 @@ const Course = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [purchasedCourses, setPurchasedCourses] = useState([]);
+  const {setUser}=useAuth();
   const navigate = useNavigate();
 
   const dummytoken = JSON.parse(localStorage.getItem("user"));
@@ -54,6 +56,7 @@ const Course = () => {
       });
       toast.success(res.data.message);
       localStorage.removeItem("user");
+      setUser(null);
       setIsLoggedIn(false);
       navigate("/login");
     } catch (err) {

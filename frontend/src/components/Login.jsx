@@ -5,13 +5,14 @@ import React, { useState } from "react";
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { backendUrl } from "../utils/utils";
+import { useAuth } from '../context/AuthContext';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
+   const {setUser} = useAuth();
   const togglePassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -29,6 +30,7 @@ const Login = () => {
       );
       toast(response.data.message);
       localStorage.setItem("user", JSON.stringify(response.data));
+      setUser(response.data);
       navigate("/");
     } catch (error) {
       if (error.response) {
