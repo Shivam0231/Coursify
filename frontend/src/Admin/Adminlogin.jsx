@@ -27,8 +27,8 @@ const Adminlogin = () => {
           headers: { "Content-Type": "application/json" },
         }
       );
-      toast(response.data.message);
       navigate("/admin/dashboard");
+      toast(response.data.message);
       localStorage.setItem("admin", JSON.stringify(response.data));
     } catch (error) {
       if (error.response) {
