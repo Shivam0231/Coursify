@@ -4,14 +4,17 @@ import logo from "../../public/shivam.jpeg";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { backendUrl } from "../utils/utils";
+import {useAuth} from '../context/AuthContext'
 function Dashboard() {
-  const handleLogout = async () => {
+    const {setAdmin} = useAuth();
+   const handleLogout = async () => {
     try {
       const response = await axios.get(`${backendUrl}/admin/logout`, {
         withCredentials: true,
       });
       toast.success(response.data.message);
       localStorage.removeItem("admin");
+      setAdmin(null);
     } catch (error) {
       console.log("Error in logging out ", error);
       toast.error(error.response?.data?.message || "Error in logging out");

@@ -5,13 +5,14 @@ import React, { useState } from "react";
 import toast from 'react-hot-toast';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { backendUrl } from "../utils/utils";
+import { useAuth } from '../context/AuthContext';
 const Adminlogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
+  const {setAdmin} = useAuth();
   const togglePassword = () => {
     setShowPassword(prev => !prev);
   };
@@ -33,7 +34,7 @@ const Adminlogin = () => {
 
     // ✅ Save admin to localStorage
     localStorage.setItem("admin", JSON.stringify(response.data));
-
+     setAdmin(response.data); 
     // ✅ Navigate after everything is done
     navigate("/admin/dashboard");
   } catch (error) {
